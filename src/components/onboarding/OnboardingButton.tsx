@@ -3,8 +3,6 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  ViewStyle,
-  TextStyle,
   View,
 } from 'react-native';
 import Animated, {
@@ -12,18 +10,11 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
 } from 'react-native-reanimated';
-import { COLORS, SPACING, FONT_SIZE, BORDER_RADIUS } from '@/constants/design';
-import { SPRING_CONFIG } from '@/animations/transitions';
+import { colors } from '../../constants/colors';
+import { springConfig } from '../../animations/transitions';
+import { OnboardingButtonProps } from '../../types/onboarding';
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
-
-interface OnboardingButtonProps {
-  label: string;
-  onPress: () => void;
-  variant?: 'primary' | 'text';
-  style?: ViewStyle;
-  textStyle?: TextStyle;
-}
 
 export default function OnboardingButton({
   label,
@@ -39,14 +30,14 @@ export default function OnboardingButton({
   }));
 
   const handlePressIn = () => {
-    scale.value = withSpring(0.95, SPRING_CONFIG.snappy);
+    scale.value = withSpring(0.96, springConfig.snappy);
   };
 
   const handlePressOut = () => {
-    scale.value = withSpring(1, SPRING_CONFIG.bouncy);
+    scale.value = withSpring(1, springConfig.bouncy);
   };
 
-  if (variant === 'text') {
+  if (variant === 'skip') {
     return (
       <AnimatedTouchable
         onPress={onPress}
@@ -54,8 +45,9 @@ export default function OnboardingButton({
         onPressOut={handlePressOut}
         style={[animatedStyle, style]}
         activeOpacity={0.7}
+        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
       >
-        <Text style={[styles.textButtonLabel, textStyle]}>{label}</Text>
+        <Text style={[styles.skipButtonText, textStyle]}>{label}</Text>
       </AnimatedTouchable>
     );
   }
@@ -65,36 +57,37 @@ export default function OnboardingButton({
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      style={[animatedStyle, styles.primaryButtonWrapper, style]}
+      style={[styles.primaryWrapper, animatedStyle, style]}
       activeOpacity={0.9}
     >
       <View style={styles.primaryButton}>
-        <Text style={[styles.primaryButtonLabel, textStyle]}>{label}</Text>
+        <Text style={[styles.primaryButtonText, textStyle]}>{label}</Text>
       </View>
     </AnimatedTouchable>
   );
 }
 
 const styles = StyleSheet.create({
-  primaryButtonWrapper: {
+  primaryWrapper: {
     width: '100%',
   },
   primaryButton: {
-    backgroundColor: COLORS.primary,
-    paddingVertical: SPACING.lg,
-    paddingHorizontal: SPACING.xxl,
-    borderRadius: BORDER_RADIUS.md,
+    height: 56,
+    backgroundColor: colors.primary,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
   },
-  primaryButtonLabel: {
-    color: COLORS.white,
-    fontSize: FONT_SIZE.md,
-    fontWeight: '700',
+  primaryButtonText: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: '600',
+    letterSpacing: 0.3,
   },
-  textButtonLabel: {
-    color: COLORS.white,
-    fontSize: FONT_SIZE.sm,
-    fontWeight: '500',
+  skipButtonText: {
+    color: colors.backgroundLight,
+    fontSize: 18,
+    fontWeight: '400',
   },
 });

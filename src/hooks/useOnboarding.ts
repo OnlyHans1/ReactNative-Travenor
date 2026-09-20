@@ -1,46 +1,42 @@
 import { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ONBOARDING_STORAGE_KEY } from '@/constants/onboarding';
+import { onboardingStorageKey } from '../constants/onboarding';
 
-/**
- * Custom hook to manage onboarding persistence state.
- * Checks AsyncStorage to determine if onboarding has been completed.
- */
 export function useOnboarding() {
   const [hasSeenOnboarding, setHasSeenOnboarding] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    checkOnboardingStatus();
-  }, []);
-
-  const checkOnboardingStatus = async () => {
+  const checkOnboardingStatus = useCallback(async () => {
     try {
-      const value = await AsyncStorage.getItem(ONBOARDING_STORAGE_KEY);
-      setHasSeenOnboarding(value === 'true');
+      const storedValue = await AsyncStorage.getItem(onboardingStorageKey);
+      setHasSeenOnboarding(storedValue === 'true');
     } catch (error) {
-      console.warn('Error reading onboarding status:', error);
+      console.warn('Failed to retrieve onboarding status from storage:', error);
       setHasSeenOnboarding(false);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    checkOnboardingStatus();
+  }, [checkOnboardingStatus]);
 
   const completeOnboarding = useCallback(async () => {
     try {
-      await AsyncStorage.setItem(ONBOARDING_STORAGE_KEY, 'true');
+      await AsyncStorage.setItem(onboardingStorageKey, 'true');
       setHasSeenOnboarding(true);
     } catch (error) {
-      console.warn('Error saving onboarding status:', error);
+      console.warn('Failed to save onboarding completion to storage:', error);
     }
   }, []);
 
   const resetOnboarding = useCallback(async () => {
     try {
-      await AsyncStorage.removeItem(ONBOARDING_STORAGE_KEY);
+      await AsyncStorage.removeItem(onboardingStorageKey);
       setHasSeenOnboarding(false);
     } catch (error) {
-      console.warn('Error resetting onboarding status:', error);
+      console.warn('Failed to clear onboarding status from storage:', error);
     }
   }, []);
 

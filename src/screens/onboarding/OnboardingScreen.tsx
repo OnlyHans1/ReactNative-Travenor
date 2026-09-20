@@ -15,22 +15,28 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
 
-import { ONBOARDING_SLIDES } from '@/constants/onboarding';
-import { COLORS, SPACING } from '@/constants/design';
-import { OnboardingSlide, PaginationDots, OnboardingButton } from '@/components/onboarding';
-import { useOnboarding } from '@/hooks/useOnboarding';
+import { onboardingSlides } from '../../constants/onboarding';
+import { colors } from '../../constants/colors';
+import {
+  OnboardingSlide,
+  PaginationDots,
+  OnboardingButton,
+} from '../../components/onboarding';
+import { useOnboarding } from '../../hooks/useOnboarding';
+import { OnboardingSlideItem } from '../../types/onboarding';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(
-  FlatList as new () => FlatList<(typeof ONBOARDING_SLIDES)[number]>
+  FlatList as new () => FlatList<OnboardingSlideItem>
 );
 
 export default function OnboardingScreen() {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const { completeOnboarding } = useOnboarding();
+
   const scrollX = useSharedValue(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const flatListRef = useRef<FlatList>(null);
+  const flatListRef = useRef<FlatList<OnboardingSlideItem>>(null);
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -53,7 +59,7 @@ export default function OnboardingScreen() {
 
   const handleNext = useCallback(() => {
     const nextIndex = activeIndex + 1;
-    if (nextIndex < ONBOARDING_SLIDES.length) {
+    if (nextIndex < onboardingSlides.length) {
       flatListRef.current?.scrollToIndex({
         index: nextIndex,
         animated: true,
@@ -73,42 +79,45 @@ export default function OnboardingScreen() {
     router.replace('/(tabs)');
   }, [completeOnboarding]);
 
-  const renderSlide = useCallback(
-    ({ item, index }: { item: (typeof ONBOARDING_SLIDES)[number]; index: number }) => (
+  const renderSlideItem = useCallback(
+    ({ item, index }: { item: OnboardingSlideItem; index: number }) => (
       <OnboardingSlide slide={item} index={index} />
     ),
     []
   );
 
   const keyExtractor = useCallback(
-    (item: (typeof ONBOARDING_SLIDES)[number]) => item.id,
+    (item: OnboardingSlideItem) => item.id,
     []
   );
 
-  const isLastSlide = activeIndex === ONBOARDING_SLIDES.length - 1;
-  const buttonLabel = isLastSlide ? 'Get Started' : ONBOARDING_SLIDES[activeIndex].buttonText;
+  const isLastSlide = activeIndex === onboardingSlides.length - 1;
+  const currentButtonLabel = onboardingSlides[activeIndex]?.buttonText || 'Next';
 
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
 
-      {/* Skip button over the image */}
+      {/* Floating Skip Button (Top Right over banner) */}
       <Animated.View
-        entering={FadeIn.delay(600).duration(400)}
-        style={[styles.skipContainer, { top: insets.top + SPACING.sm }]}
+        entering={FadeIn.delay(300).duration(400)}
+        style={[
+          styles.skipButtonContainer,
+          { top: Math.max(insets.top + 10, 24) },
+        ]}
       >
         <OnboardingButton
           label="Skip"
           onPress={handleSkip}
-          variant="text"
+          variant="skip"
         />
       </Animated.View>
 
-      {/* Slides */}
+      {/* Horizontal Carousel Slides */}
       <AnimatedFlatList
         ref={flatListRef as any}
-        data={ONBOARDING_SLIDES}
-        renderItem={renderSlide}
+        data={onboardingSlides}
+        renderItem={renderSlideItem}
         keyExtractor={keyExtractor}
         horizontal
         pagingEnabled
@@ -121,22 +130,22 @@ export default function OnboardingScreen() {
         decelerationRate="fast"
       />
 
-      {/* Bottom controls */}
+      {/* Bottom Controls (Pagination Dots + Action Button) */}
       <View
         style={[
-          styles.bottomContainer,
-          { paddingBottom: insets.bottom > 0 ? insets.bottom : SPACING.lg },
+          styles.bottomControlsContainer,
+          { paddingBottom: Math.max(insets.bottom + 16, 28) },
         ]}
       >
         <PaginationDots
-          total={ONBOARDING_SLIDES.length}
+          total={onboardingSlides.length}
           scrollX={scrollX}
           pageWidth={width}
         />
 
-        <View style={styles.buttonContainer}>
+        <View style={styles.actionButtonContainer}>
           <OnboardingButton
-            label={buttonLabel}
+            label={currentButtonLabel}
             onPress={isLastSlide ? handleComplete : handleNext}
           />
         </View>
@@ -148,18 +157,18 @@ export default function OnboardingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
   },
-  skipContainer: {
+  skipButtonContainer: {
     position: 'absolute',
-    right: SPACING.lg,
-    zIndex: 10,
+    right: 24,
+    zIndex: 20,
   },
-  bottomContainer: {
-    paddingHorizontal: SPACING.xl,
-    paddingTop: SPACING.md,
+  bottomControlsContainer: {
+    paddingHorizontal: 24,
+    backgroundColor: colors.white,
   },
-  buttonContainer: {
+  actionButtonContainer: {
     width: '100%',
   },
 });
