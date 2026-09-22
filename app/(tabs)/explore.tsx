@@ -1,7 +1,8 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { COLORS, SPACING, FONT_SIZE, BORDER_RADIUS } from '@/constants/design';
+import { colors } from '@/constants/colors';
+import { spacing, fontSize, borderRadius } from '@/constants/design';
 
 const EXPLORE_CATEGORIES = [
   { emoji: '🏖️', label: 'Beach', color: '#E3F2FD' },
@@ -17,7 +18,7 @@ export default function ExploreScreen() {
 
   return (
     <ScrollView
-      style={[styles.container, { paddingTop: insets.top + SPACING.lg }]}
+      style={[styles.container, { paddingTop: insets.top + spacing.lg }]}
       contentContainerStyle={styles.content}
     >
       <StatusBar style="dark" />
@@ -42,43 +43,43 @@ export default function ExploreScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.white,
-    paddingHorizontal: SPACING.lg,
+    backgroundColor: colors.white,
+    paddingHorizontal: spacing.lg,
   },
   content: {
-    paddingBottom: SPACING.xxl,
+    paddingBottom: spacing.xxl,
   },
   title: {
-    fontSize: FONT_SIZE.xxl,
+    fontSize: fontSize.xxl,
     fontWeight: '800',
-    color: COLORS.primary,
-    marginBottom: SPACING.xs,
+    color: colors.primary,
+    marginBottom: spacing.xs,
   },
   subtitle: {
-    fontSize: FONT_SIZE.md,
-    color: COLORS.gray400,
+    fontSize: fontSize.md,
+    color: colors.textSub,
     fontWeight: '500',
-    marginBottom: SPACING.xl,
+    marginBottom: spacing.xl,
   },
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: SPACING.md,
+    gap: spacing.md,
   },
   card: {
     width: '47%',
-    paddingVertical: SPACING.xl,
-    paddingHorizontal: SPACING.md,
-    borderRadius: BORDER_RADIUS.lg,
+    paddingVertical: spacing.xl,
+    paddingHorizontal: spacing.md,
+    borderRadius: borderRadius.lg,
     alignItems: 'center',
-    gap: SPACING.sm,
+    gap: spacing.sm,
   },
   cardEmoji: {
     fontSize: 36,
   },
   cardLabel: {
-    fontSize: FONT_SIZE.md,
+    fontSize: fontSize.md,
     fontWeight: '600',
-    color: COLORS.primary,
+    color: colors.primary,
   },
 });

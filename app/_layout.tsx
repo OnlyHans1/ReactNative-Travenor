@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/hooks/useColorScheme';
 
 // Prevent the native splash screen from auto-hiding
 // so our custom animated splash takes over smoothly.
@@ -52,15 +52,6 @@ export default function RootLayout() {
             headerShown: false,
             animation: 'fade',
             gestureEnabled: false,
-          }}
-        />
-        {/* Modal */}
-        <Stack.Screen
-          name="modal"
-          options={{
-            presentation: 'modal',
-            title: 'Modal',
-            headerShown: true,
           }}
         />
       </Stack>

@@ -65,3 +65,9 @@ export const shadows = {
     elevation: 5,
   },
 } as const;
+
+export { colors, COLORS } from './colors';
+export const SPACING = spacing;
+export const FONT_SIZE = fontSize;
+export const BORDER_RADIUS = borderRadius;
+export const SHADOWS = shadows;

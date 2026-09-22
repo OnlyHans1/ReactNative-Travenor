@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -25,9 +25,9 @@ export default function SplashScreen() {
   const textTranslateY = useSharedValue(24);
   const containerOpacity = useSharedValue(1);
 
-  const navigateToOnboarding = () => {
+  const navigateToOnboarding = useCallback(() => {
     router.replace('/onboarding');
-  };
+  }, []);
 
   useEffect(() => {
     // 1. Logo appears with spring entrance
@@ -62,7 +62,14 @@ export default function SplashScreen() {
     }, animationConfig.splash.autoNavigateDelay);
 
     return () => clearTimeout(navigationTimer);
-  }, []);
+  }, [
+    containerOpacity,
+    logoOpacity,
+    logoScale,
+    navigateToOnboarding,
+    textOpacity,
+    textTranslateY,
+  ]);
 
   const logoAnimatedStyle = useAnimatedStyle(() => ({
     opacity: logoOpacity.value,

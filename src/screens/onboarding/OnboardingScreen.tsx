@@ -57,6 +57,16 @@ export default function OnboardingScreen() {
     viewAreaCoveragePercentThreshold: 50,
   }).current;
 
+  const handleSkip = useCallback(async () => {
+    await completeOnboarding();
+    router.replace('/(tabs)');
+  }, [completeOnboarding]);
+
+  const handleComplete = useCallback(async () => {
+    await completeOnboarding();
+    router.replace('/(tabs)');
+  }, [completeOnboarding]);
+
   const handleNext = useCallback(() => {
     const nextIndex = activeIndex + 1;
     if (nextIndex < onboardingSlides.length) {
@@ -67,17 +77,7 @@ export default function OnboardingScreen() {
     } else {
       handleComplete();
     }
-  }, [activeIndex]);
-
-  const handleSkip = useCallback(async () => {
-    await completeOnboarding();
-    router.replace('/(tabs)');
-  }, [completeOnboarding]);
-
-  const handleComplete = useCallback(async () => {
-    await completeOnboarding();
-    router.replace('/(tabs)');
-  }, [completeOnboarding]);
+  }, [activeIndex, handleComplete]);
 
   const renderSlideItem = useCallback(
     ({ item, index }: { item: OnboardingSlideItem; index: number }) => (

@@ -1,13 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { COLORS, SPACING, FONT_SIZE } from '@/constants/design';
+import { colors } from '@/constants/colors';
+import { spacing, fontSize } from '@/constants/design';
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + SPACING.lg }]}>
+    <View style={[styles.container, { paddingTop: insets.top + spacing.lg }]}>
       <StatusBar style="dark" />
       <View style={styles.header}>
         <Text style={styles.greeting}>Hello, Explorer! 👋</Text>
@@ -29,21 +30,21 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.white,
-    paddingHorizontal: SPACING.lg,
+    backgroundColor: colors.white,
+    paddingHorizontal: spacing.lg,
   },
   header: {
-    marginBottom: SPACING.xl,
+    marginBottom: spacing.xl,
   },
   greeting: {
-    fontSize: FONT_SIZE.xxl,
+    fontSize: fontSize.xxl,
     fontWeight: '800',
-    color: COLORS.primary,
-    marginBottom: SPACING.xs,
+    color: colors.primary,
+    marginBottom: spacing.xs,
   },
   subtitle: {
-    fontSize: FONT_SIZE.md,
-    color: COLORS.gray400,
+    fontSize: fontSize.md,
+    color: colors.textSub,
     fontWeight: '500',
   },
   placeholder: {
@@ -54,17 +55,17 @@ const styles = StyleSheet.create({
   },
   emoji: {
     fontSize: 64,
-    marginBottom: SPACING.lg,
+    marginBottom: spacing.lg,
   },
   placeholderTitle: {
-    fontSize: FONT_SIZE.xl,
+    fontSize: fontSize.xl,
     fontWeight: '700',
-    color: COLORS.primary,
-    marginBottom: SPACING.sm,
+    color: colors.primary,
+    marginBottom: spacing.sm,
   },
   placeholderText: {
-    fontSize: FONT_SIZE.md,
-    color: COLORS.gray400,
+    fontSize: fontSize.md,
+    color: colors.textSub,
     textAlign: 'center',
     lineHeight: 22,
   },

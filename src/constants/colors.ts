@@ -40,4 +40,5 @@ export const colors = {
   overlayLight: 'rgba(0, 0, 0, 0.2)',
 } as const;
 
+export const COLORS = colors;
 export type AppColors = typeof colors;
