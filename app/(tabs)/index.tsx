@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { colors } from '@/constants/colors';
-import { spacing, fontSize } from '@/constants/design';
+import { spacing, fontSize, fonts } from '@/constants/design';
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
@@ -37,12 +37,14 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xl,
   },
   greeting: {
+    fontFamily: fonts.headingBlack,
     fontSize: fontSize.xxl,
     fontWeight: '800',
     color: colors.primary,
     marginBottom: spacing.xs,
   },
   subtitle: {
+    fontFamily: fonts.bodyMedium,
     fontSize: fontSize.md,
     color: colors.textSub,
     fontWeight: '500',
@@ -58,12 +60,14 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
   },
   placeholderTitle: {
+    fontFamily: fonts.headingBold,
     fontSize: fontSize.xl,
     fontWeight: '700',
     color: colors.primary,
     marginBottom: spacing.sm,
   },
   placeholderText: {
+    fontFamily: fonts.bodyRegular,
     fontSize: fontSize.md,
     color: colors.textSub,
     textAlign: 'center',

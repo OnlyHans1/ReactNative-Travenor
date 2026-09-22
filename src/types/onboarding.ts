@@ -1,12 +1,6 @@
 import { ImageSourcePropType, ViewStyle, TextStyle } from 'react-native';
 import { SharedValue } from 'react-native-reanimated';
 
-export interface HighlightCurveData {
-  path: string;
-  width: number;
-  height: number;
-}
-
 export interface OnboardingSlideItem {
   id: string;
   image: ImageSourcePropType;
@@ -15,7 +9,9 @@ export interface OnboardingSlideItem {
   titleSuffix?: string;
   description: string;
   buttonText: string;
-  curve: HighlightCurveData;
+  curveImage: ImageSourcePropType;
+  curveWidth: number;
+  curveHeight: number;
 }
 
 export interface PaginationDotsProps {
@@ -40,7 +36,8 @@ export interface OnboardingButtonProps {
 }
 
 export interface HighlightCurveProps {
-  curve: HighlightCurveData;
-  color?: string;
+  source: ImageSourcePropType;
+  width: number;
+  height: number;
   style?: ViewStyle;
 }

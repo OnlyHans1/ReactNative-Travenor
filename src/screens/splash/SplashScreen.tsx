@@ -13,6 +13,7 @@ import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors } from '../../constants/colors';
+import { fonts } from '../../constants/design';
 import { animationConfig, springConfig } from '../../animations/transitions';
 import TravenorLogo from '../../components/common/TravenorLogo';
 
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   brandTitle: {
+    fontFamily: fonts.headingBlack,
     fontSize: 34,
     fontWeight: '800',
     color: colors.white,

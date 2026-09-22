@@ -11,6 +11,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import { colors } from '../../constants/colors';
+import { fonts } from '../../constants/design';
 import { springConfig } from '../../animations/transitions';
 import { OnboardingButtonProps } from '../../types/onboarding';
 
@@ -80,12 +81,14 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   primaryButtonText: {
+    fontFamily: fonts.buttonSemiBold,
     color: colors.white,
     fontSize: 16,
     fontWeight: '600',
     letterSpacing: 0.3,
   },
   skipButtonText: {
+    fontFamily: fonts.bodyRegular,
     color: colors.backgroundLight,
     fontSize: 18,
     fontWeight: '400',

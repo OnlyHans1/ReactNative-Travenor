@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { colors } from '@/constants/colors';
-import { spacing, fontSize, borderRadius } from '@/constants/design';
+import { spacing, fontSize, borderRadius, fonts } from '@/constants/design';
 
 const EXPLORE_CATEGORIES = [
   { emoji: '🏖️', label: 'Beach', color: '#E3F2FD' },
@@ -50,12 +50,14 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xxl,
   },
   title: {
+    fontFamily: fonts.headingBlack,
     fontSize: fontSize.xxl,
     fontWeight: '800',
     color: colors.primary,
     marginBottom: spacing.xs,
   },
   subtitle: {
+    fontFamily: fonts.bodyMedium,
     fontSize: fontSize.md,
     color: colors.textSub,
     fontWeight: '500',
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 36,
   },
   cardLabel: {
+    fontFamily: fonts.buttonSemiBold,
     fontSize: fontSize.md,
     fontWeight: '600',
     color: colors.primary,

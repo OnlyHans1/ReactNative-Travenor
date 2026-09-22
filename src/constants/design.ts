@@ -66,8 +66,21 @@ export const shadows = {
   },
 } as const;
 
+export const fonts = {
+  headingBlack: 'Outfit_900Black',
+  headingExtraBold: 'Outfit_800ExtraBold',
+  headingBold: 'Outfit_700Bold',
+  headingSemiBold: 'Outfit_600SemiBold',
+  headingRegular: 'Outfit_400Regular',
+  bodyRegular: 'PlusJakartaSans_400Regular',
+  bodyMedium: 'PlusJakartaSans_500Medium',
+  buttonSemiBold: 'PlusJakartaSans_600SemiBold',
+  buttonBold: 'PlusJakartaSans_700Bold',
+} as const;
+
 export { colors, COLORS } from './colors';
 export const SPACING = spacing;
 export const FONT_SIZE = fontSize;
 export const BORDER_RADIUS = borderRadius;
 export const SHADOWS = shadows;
+export const FONTS = fonts;

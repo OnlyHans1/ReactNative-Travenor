@@ -27,6 +27,8 @@
 - 🔄 **Dynamic Pagination Indicator**: Custom pagination dots that interpolate both width (`35px`, `13px`, `6px`) and color seamlessly as the user swipes.
 - 💾 **Persistent State**: Onboarding completion status saved locally via `@react-native-async-storage/async-storage`.
 - 📁 **Clean Modular Architecture**: Clean separation between routing (`app/`) and core application logic (`src/`), ensuring scalability and maintainability.
+- 🔤 **Google Fonts Integration**: Loaded using `@expo-google-fonts` — **Outfit** (Black/Bold/SemiBold) matching Figma's Geometric 415 Black, and **Plus Jakarta Sans** (Regular/Medium/SemiBold) matching Gill Sans MT and SF UI Display.
+- 🖼️ **Lightweight WebP & SVG Assets**: All illustrations converted to ultra-lightweight `.webp` format (~88% size reduction) and standalone `.svg` vector files in `assets/`, with zero hardcoded vector paths in code.
 - 🐪 **Strict camelCase Conventions**: Consistent variable, function, token, and parameter naming across the entire codebase.
 
 ---
@@ -39,17 +41,21 @@ ReactNative-Travenor/
 │   ├── (tabs)/                        # Main application tab navigation
 │   │   ├── (explore, index)/          # Tab screen views
 │   │   └── _layout.tsx                # Tab bar layout & icons
-│   ├── _layout.tsx                    # Root layout with ThemeProvider & Stack
+│   ├── _layout.tsx                    # Root layout with ThemeProvider, Font loading & Stack
 │   ├── index.tsx                      # Splash screen entry point
-│   ├── modal.tsx                      # Modal presentation route
 │   └── onboarding.tsx                 # Onboarding carousel route
 │
-├── assets/                            # Static media assets
-│   ├── icon/                          # SVG and vector brand icons
-│   └── splash/                        # High-resolution splash & onboarding illustrations
-│       ├── splash-1.png               # Sailboat on waves (Slide 1)
-│       ├── splash-2.png               # Flying bird & mountains (Slide 3)
-│       └── splash-3.png               # Canoe by cabin & lake (Slide 2)
+├── assets/                            # Lightweight media assets
+│   ├── icons/                         # SVG brand vectors
+│   │   └── logo.svg                   # Travenor globe & airplanes SVG logo
+│   ├── onboarding/                    # Onboarding vector curves
+│   │   ├── curve-wide.svg             # Decorative curve for "wide"
+│   │   ├── curve-explore.svg          # Decorative curve for "explore"
+│   │   └── curve-people.svg           # Decorative curve for "people"
+│   └── splash/                        # Optimized lightweight WebP illustrations
+│       ├── splash-1.webp              # Sailboat on waves (Slide 1, 45 KB)
+│       ├── splash-2.webp              # Flying bird & mountains (Slide 3, 18 KB)
+│       └── splash-3.webp              # Canoe by cabin & lake (Slide 2, 39 KB)
 │
 ├── src/                               # Core Application Source Code
 │   ├── animations/                    # Reanimated animation presets & timing

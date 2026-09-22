@@ -4,10 +4,11 @@ import {
   Text,
   StyleSheet,
   useWindowDimensions,
-  Image,
 } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import { Image } from 'expo-image';
 import { colors } from '../../constants/colors';
+import { fonts } from '../../constants/design';
 import { OnboardingSlideItem } from '../../types/onboarding';
 import HighlightCurve from './HighlightCurve';
 
@@ -18,17 +19,18 @@ interface OnboardingSlideProps {
 
 export default function OnboardingSlide({ slide, index }: OnboardingSlideProps) {
   const { width, height } = useWindowDimensions();
-  // Banner height is proportionally 54% of screen height, capped around 444px
+  // Banner height is proportionally 54% of screen height, capped around 450px
   const bannerHeight = Math.min(height * 0.54, 450);
 
   return (
     <View style={[styles.container, { width }]}>
-      {/* Top Banner Image with rounded bottom corners */}
+      {/* Top Banner WebP Image with rounded bottom corners */}
       <View style={[styles.bannerContainer, { width, height: bannerHeight }]}>
         <Image
           source={slide.image}
           style={[styles.bannerImage, { width, height: bannerHeight }]}
-          resizeMode="cover"
+          contentFit="cover"
+          transition={250}
         />
       </View>
 
@@ -46,9 +48,13 @@ export default function OnboardingSlide({ slide, index }: OnboardingSlideProps) 
             {slide.titleSuffix}
           </Text>
 
-          {/* Decorative curve underneath highlight word */}
+          {/* Decorative curve SVG asset underneath highlight word */}
           <View style={styles.curveContainer}>
-            <HighlightCurve curve={slide.curve} />
+            <HighlightCurve
+              source={slide.curveImage}
+              width={slide.curveWidth}
+              height={slide.curveHeight}
+            />
           </View>
         </View>
 
@@ -88,6 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   titleText: {
+    fontFamily: fonts.headingBlack,
     fontSize: 30,
     fontWeight: '800',
     color: colors.textDark,
@@ -96,6 +103,7 @@ const styles = StyleSheet.create({
     maxWidth: 330,
   },
   highlightText: {
+    fontFamily: fonts.headingBlack,
     color: colors.accent,
     fontWeight: '800',
   },
@@ -104,6 +112,7 @@ const styles = StyleSheet.create({
     marginTop: -2,
   },
   descriptionText: {
+    fontFamily: fonts.bodyRegular,
     fontSize: 16,
     color: colors.textSub,
     textAlign: 'center',
